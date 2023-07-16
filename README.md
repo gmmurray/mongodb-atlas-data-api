@@ -1,3 +1,8 @@
+[![npm version](https://flat.badgen.net/npm/v/mongodb-atlas-data-api)](https://www.npmjs.com/package/mongodb-atlas-data-api)
+[![license](https://flat.badgen.net/npm/license/mongodb-atlas-data-api)](./LICENSE)
+[![types](https://flat.badgen.net/npm/types/mongodb-atlas-data-api)](https://www.npmjs.com/package/mongodb-atlas-data-api)
+[![commits](https://flat.badgen.net/github/commits/gmmurray/mongodb-atlas-data-api)](https://github.com/gmmurray/mongodb-atlas-data-api)
+
 # @gmmurray/mongodb-atlas-data-api
 
 > A client library for interacting with the Atlas Data API.

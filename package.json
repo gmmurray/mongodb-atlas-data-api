@@ -1,0 +1,35 @@
+{
+  "name": "@gmurray/mongodb-atlas-data-api",
+  "version": "0.1.0",
+  "description": "api client wrapper around the mongodb atlas data api",
+  "repository": "https://github.com/gmmurray/mongodb-atlas-data-api.git",
+  "bugs": "https://github.com/gmmurray/mongodb-atlas-data-api/issues",
+  "homepage": "https://github.com/gmmurray/mongodb-atlas-data-api",
+  "license": "MIT",
+  "author": "gmmurray",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest --config=jest.config.json",
+    "test:watch": "jest --config=jest.config.json --watch",
+    "prepublish": "yarn test && yarn build"
+  },
+  "keywords": [
+    "mongodb",
+    "atlas",
+    "data",
+    "api"
+  ],
+  "devDependencies": {
+    "@types/jest": "^29.5.3",
+    "@types/node": "^20.4.2",
+    "jest": "^29.6.1",
+    "mongodb": "^5.7.0",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "axios": "^1.4.0"
+  }
+}

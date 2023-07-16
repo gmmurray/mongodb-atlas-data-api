@@ -1,5 +1,5 @@
 {
-  "name": "@gmurray/mongodb-atlas-data-api",
+  "name": "@gmmurray/mongodb-atlas-data-api",
   "version": "0.1.0",
   "description": "api client wrapper around the mongodb atlas data api",
   "repository": "https://github.com/gmmurray/mongodb-atlas-data-api.git",

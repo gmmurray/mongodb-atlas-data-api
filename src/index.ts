@@ -31,7 +31,11 @@ export default class AtlasDataApiClient {
   private defaultDataSource?: string;
   private defaultDatabase?: string;
 
-  constructor(private options: AtlasDataApiClientOptions) {
+  /**
+   * Initializes a new instance of the AtlasDataApiClient class.
+   * @param {AtlasDataApiClientOptions} options - The options required to initialize the client.
+   */
+  constructor(options: AtlasDataApiClientOptions) {
     this.baseURL = `https://data.mongodb-api.com/app/${options.dataApiAppId}/endpoint/data/v1`;
     this.headers = {
       'Content-Type': 'application/json',
@@ -41,6 +45,11 @@ export default class AtlasDataApiClient {
     this.defaultDatabase = options.defaultDatabase;
   }
 
+  /**
+   * Handles the error occurred during an API request.
+   * @param {AxiosError} error - The error object.
+   * @private
+   */
   private handleRequestError(error: AxiosError): void {
     if (error.response) {
       console.error('Request failed with status', error.response.status);
@@ -52,6 +61,14 @@ export default class AtlasDataApiClient {
     }
   }
 
+  /**
+   * Makes a request to the Atlas Data API.
+   * @param {string} url - The API endpoint URL.
+   * @param {string} method - The HTTP method for the request.
+   * @param {TRequest} request - The request payload.
+   * @returns {Promise<TResponse>} - The API response.
+   * @private
+   */
   private async makeRequest<
     TResponse extends ApiResponse<any>,
     TRequest extends BaseRequest,
@@ -76,6 +93,11 @@ export default class AtlasDataApiClient {
     }
   }
 
+  /**
+   * Finds a single document in the specified collection.
+   * @param {FindOneDocumentRequest<T>} request - The request parameters.
+   * @returns {Promise<FindOneApiResponse<T>>} - The API response.
+   */
   public findOneDocument<T>(
     request: FindOneDocumentRequest<T>,
   ): Promise<FindOneApiResponse<T>> {
@@ -83,6 +105,11 @@ export default class AtlasDataApiClient {
     return this.makeRequest(url, 'POST', request);
   }
 
+  /**
+   * Finds multiple documents in the specified collection.
+   * @param {FindManyDocumentsRequest<T>} request - The request parameters.
+   * @returns {Promise<FindManyApiResponse<T>>} - The API response.
+   */
   public async findDocuments<T>(
     request: FindManyDocumentsRequest<T>,
   ): Promise<FindManyApiResponse<T>> {
@@ -96,6 +123,11 @@ export default class AtlasDataApiClient {
     return this.makeRequest(url, 'POST', modifiedRequest);
   }
 
+  /**
+   * Inserts a single document into the specified collection.
+   * @param {InsertOneDocumentRequest<T>} request - The request parameters.
+   * @returns {Promise<InsertOneApiResponse>} - The API response.
+   */
   public insertOneDocument<T>(
     request: InsertOneDocumentRequest<T>,
   ): Promise<InsertOneApiResponse> {
@@ -103,6 +135,11 @@ export default class AtlasDataApiClient {
     return this.makeRequest(url, 'POST', request);
   }
 
+  /**
+   * Inserts multiple documents into the specified collection.
+   * @param {InsertManyDocumentsRequest<T>} request - The request parameters.
+   * @returns {Promise<InsertManyApiResponse>} - The API response.
+   */
   public insertManyDocuments<T>(
     request: InsertManyDocumentsRequest<T>,
   ): Promise<InsertManyApiResponse> {
@@ -110,6 +147,11 @@ export default class AtlasDataApiClient {
     return this.makeRequest(url, 'POST', request);
   }
 
+  /**
+   * Updates a single document in the specified collection.
+   * @param {UpdateOneDocumentRequest<T>} request - The request parameters.
+   * @returns {Promise<UpdateOneApiResponse>} - The API response.
+   */
   public updateOneDocument<T>(
     request: UpdateOneDocumentRequest<T>,
   ): Promise<UpdateOneApiResponse> {
@@ -117,6 +159,11 @@ export default class AtlasDataApiClient {
     return this.makeRequest(url, 'POST', request);
   }
 
+  /**
+   * Updates multiple documents in the specified collection.
+   * @param {UpdateManyDocumentsRequest<T>} request - The request parameters.
+   * @returns {Promise<UpdateManyApiResponse>} - The API response.
+   */
   public updateManyDocuments<T>(
     request: UpdateManyDocumentsRequest<T>,
   ): Promise<UpdateManyApiResponse> {
@@ -124,6 +171,11 @@ export default class AtlasDataApiClient {
     return this.makeRequest(url, 'POST', request);
   }
 
+  /**
+   * Replaces a single document in the specified collection.
+   * @param {ReplaceOneDocumentRequest<T>} request - The request parameters.
+   * @returns {Promise<ReplaceOneApiResponse>} - The API response.
+   */
   public replaceOneDocument<T>(
     request: ReplaceOneDocumentRequest<T>,
   ): Promise<ReplaceOneApiResponse> {
@@ -131,6 +183,11 @@ export default class AtlasDataApiClient {
     return this.makeRequest(url, 'POST', request);
   }
 
+  /**
+   * Deletes a single document from the specified collection.
+   * @param {DeleteOneDocumentRequest<T>} request - The request parameters.
+   * @returns {Promise<DeleteOneApiResponse>} - The API response.
+   */
   public deleteOneDocument<T>(
     request: DeleteOneDocumentRequest<T>,
   ): Promise<DeleteOneApiResponse> {
@@ -138,6 +195,11 @@ export default class AtlasDataApiClient {
     return this.makeRequest(url, 'POST', request);
   }
 
+  /**
+   * Deletes multiple documents from the specified collection.
+   * @param {DeleteManyDocumentsRequest<T>} request - The request parameters.
+   * @returns {Promise<DeleteManyApiResponse>} - The API response.
+   */
   public deleteManyDocuments<T>(
     request: DeleteManyDocumentsRequest<T>,
   ): Promise<DeleteManyApiResponse> {
@@ -145,6 +207,11 @@ export default class AtlasDataApiClient {
     return this.makeRequest(url, 'POST', request);
   }
 
+  /**
+   * Performs an aggregation on the specified collection.
+   * @param {AggregateDocumentsRequest} request - The request parameters.
+   * @returns {Promise<AggregateApiResponse>} - The API response.
+   */
   public aggregateDocuments(
     request: AggregateDocumentsRequest,
   ): Promise<AggregateApiResponse> {

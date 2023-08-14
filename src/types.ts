@@ -63,7 +63,7 @@ export interface AggregateDocumentsRequest extends BaseRequest {
 
 export interface AtlasDataApiClientOptions {
   apiKey: string;
-  dataApiAppId: string;
+  dataApiUrlEndpoint: string;
   defaultDataSource?: string;
   defaultDatabase?: string;
 }

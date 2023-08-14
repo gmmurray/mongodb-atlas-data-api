@@ -78,7 +78,7 @@ import AtlasDataApiClient, {
 
 const options: AtlasDataApiClientOptions = {
   apiKey: 'YOUR_API_KEY',
-  dataApiAppId: 'YOUR_DATA_API_APP_ID',
+  dataApiUrlEndpoint: 'your-app-url-endpoint',
   defaultDataSource: 'your-default-data-source',
   defaultDatabase: 'your-default-database',
 };

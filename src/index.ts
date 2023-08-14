@@ -36,7 +36,7 @@ export default class AtlasDataApiClient {
    * @param {AtlasDataApiClientOptions} options - The options required to initialize the client.
    */
   constructor(options: AtlasDataApiClientOptions) {
-    this.baseURL = `https://data.mongodb-api.com/app/${options.dataApiAppId}/endpoint/data/v1`;
+    this.baseURL = options.dataApiUrlEndpoint;
     this.headers = {
       'Content-Type': 'application/json',
       'api-key': options.apiKey,
@@ -114,11 +114,17 @@ export default class AtlasDataApiClient {
     request: FindManyDocumentsRequest<T>,
   ): Promise<FindManyApiResponse<T>> {
     const url = '/action/find';
-    const { pageSize = 10, pageNumber = 1, ...rest } = request;
+    const { pageSize, pageNumber, ...rest } = request;
 
-    const skip = (pageNumber - 1) * pageSize;
+    const modifiedRequest: FindManyDocumentsRequest<T> & {
+      skip?: number;
+      limit?: number;
+    } = { ...rest };
 
-    const modifiedRequest = { ...rest, skip, limit: pageSize };
+    if (pageSize !== undefined && pageNumber !== undefined) {
+      modifiedRequest.skip = (pageNumber - 1) * pageSize;
+      modifiedRequest.limit = pageSize;
+    }
 
     return this.makeRequest(url, 'POST', modifiedRequest);
   }

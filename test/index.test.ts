@@ -35,7 +35,7 @@ describe('AtlasDataApiClient', () => {
   beforeEach(() => {
     apiClient = new AtlasDataApiClient({
       apiKey: 'your-api-key',
-      dataApiAppId: 'your-app-id',
+      dataApiUrlEndpoint: 'your-app-url-endpoint',
       defaultDataSource: 'your-data-source',
       defaultDatabase: 'your-database',
     });
@@ -125,6 +125,43 @@ describe('AtlasDataApiClient', () => {
           projection: undefined,
           limit: 10,
           skip: 0,
+          sort: { name: 1 },
+          dataSource: 'your-data-source',
+          database: 'your-database',
+        },
+      });
+      expect(result.data).toEqual(response);
+    });
+
+    it('should not include paging if not provided in request', async () => {
+      const request: FindManyDocumentsRequest<any> = {
+        collection: 'your-collection',
+        filter: { age: { $gte: 18 } },
+        sort: { name: 1 },
+      };
+
+      const response: FindManyApiResponse<any> = {
+        data: {
+          documents: [
+            { id: '123', name: 'John Doe' },
+            { id: '456', name: 'Jane Smith' },
+          ],
+        },
+      };
+
+      (axios.request as jest.Mock).mockResolvedValueOnce({ data: response });
+
+      const result = await apiClient.findDocuments(request);
+
+      expect(axios.request).toHaveBeenCalledTimes(1);
+      expect(axios.request).toHaveBeenCalledWith({
+        method: 'POST',
+        url: expect.stringContaining('/action/find'),
+        headers: expect.any(Object),
+        data: {
+          collection: 'your-collection',
+          filter: { age: { $gte: 18 } },
+          projection: undefined,
           sort: { name: 1 },
           dataSource: 'your-data-source',
           database: 'your-database',
